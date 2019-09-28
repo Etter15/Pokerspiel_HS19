@@ -34,10 +34,18 @@ public class HandTypeTest {
 			{ "9S", "2C", "2H", "5D", "5H" }
 			};
 	
+	private static String[][] tripple = {
+			{ "2S", "2C", "2H", "5D", "7D" },
+			{ "2S", "2C", "7D", "5D", "2H" },
+			{ "2S", "7D", "2H", "5D", "2C" },
+			{ "7D", "5D", "2H", "2C", "2S" }
+			};
+	
 	// This is where we store the translated hands
 	ArrayList<ArrayList<Card>> highCardHands;
 	ArrayList<ArrayList<Card>> pairHands;
 	ArrayList<ArrayList<Card>> twoPairHands;
+	ArrayList<ArrayList<Card>> trippleHands;
 	
 	/**
 	 * The makeHands method is called before each test method,
@@ -49,6 +57,7 @@ public class HandTypeTest {
 		highCardHands = makeHands(highCards);
 		pairHands = makeHands(pairs);
 		twoPairHands = makeHands(twoPairs);
+		trippleHands = makeHands(tripple);
 	}
 
 	/**
@@ -67,6 +76,9 @@ public class HandTypeTest {
 		for (ArrayList<Card> hand : twoPairHands) {
 			assertTrue(HandType.isOnePair(hand)); // Two-pair contains a pair
 		}
+		for (ArrayList<Card> hand : trippleHands) {
+			assertTrue(HandType.isOnePair(hand)); // Tripple contains a pair
+		}
 	}
 
 	/**
@@ -82,6 +94,28 @@ public class HandTypeTest {
 		}
 		for (ArrayList<Card> hand : twoPairHands) {
 			assertTrue(HandType.isTwoPair(hand));
+		}
+		for (ArrayList<Card> hand : trippleHands) {
+			assertFalse(HandType.isTwoPair(hand));
+		}
+	}
+	
+	/**
+	 * This is the test method for the isTwoPair in HandType.
+	 */
+	@Test
+	public void testIsTripple() {
+		for (ArrayList<Card> hand : highCardHands) {
+			assertFalse(HandType.isThreeOfAKind(hand));
+		}
+		for (ArrayList<Card> hand : pairHands) {
+			assertFalse(HandType.isThreeOfAKind(hand));
+		}
+		for (ArrayList<Card> hand : twoPairHands) {
+			assertFalse(HandType.isThreeOfAKind(hand));
+		}
+		for (ArrayList<Card> hand : trippleHands) {
+			assertTrue(HandType.isThreeOfAKind(hand));
 		}
 	}
 	
