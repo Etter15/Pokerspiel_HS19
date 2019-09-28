@@ -3,7 +3,7 @@ package poker.version_graphics.model;
 import java.util.ArrayList;
 
 public enum HandType {
-    HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush;
+    HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush, RoyalFlush;
     
     /**
      * Determine the value of this hand. Note that this does not
@@ -20,6 +20,7 @@ public enum HandType {
         if (isFullHouse(cards)) currentEval = FullHouse;
         if (isFourOfAKind(cards)) currentEval = FourOfAKind;
         if (isStraightFlush(cards)) currentEval = StraightFlush;
+        if (isRoyalFlush(cards)) currentEval = RoyalFlush;
         
         return currentEval;
     }
@@ -53,6 +54,7 @@ public enum HandType {
         return firstPairFound && isOnePair(clonedCards);
     }
     
+    //Analog zu Paar mit einer zusätzlichen Schleife
     public static boolean isThreeOfAKind(ArrayList<Card> cards) {
         boolean found = false;
         for (int i = 0; i < cards.size() - 1 && !found; i++) {
@@ -67,21 +69,59 @@ public enum HandType {
         return found;
     }
     
+    //Fünf Karten in der Reihe
     public static boolean isStraight(ArrayList<Card> cards) {
-        // TODO        
+        boolean found = false;
+        
+        //Arraylist definieren
+        ArrayList<Integer> tempListe = new ArrayList<Integer>();
+        
+        //Arraylist füllen mit den Werten der Karten
+       // for (int i = 0; i < cards.size() - 1; i++) {
+       //     if (cards == Card.Rank.Two) {
+               
+        
+        //Arraylist sortieren
+        
+        
+        //Schleife für die Auswertung
+                	
+
+        
         return false;
     }
     
+    // Wenn alle Karten die gleihe Suit haben => Flush
     public static boolean isFlush(ArrayList<Card> cards) {
-        // TODO        
-        return false;
+        boolean found = false;
+        for (int i = 0; i < cards.size() - 1 && !found; i++) {
+            for (int j = i+1; j < cards.size() && !found; j++) {
+                if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
+                	for (int k = j+1; k < cards.size() && !found; k++) {
+                		if (cards.get(j).getSuit() == cards.get(k).getSuit()) {
+                			for (int m = k+1; m < cards.size() && !found; m++) {
+                				 if (cards.get(i).getSuit() == cards.get(m).getSuit()) {
+                	                	for (int l = m+1; l < cards.size() && !found; l++) {
+                	                		if (cards.get(j).getSuit() == cards.get(k).getSuit()) found = true;
+                	                	}
+                				 }
+                	       }
+                		}
+                	}	
+                }
+            }
+        }
+        return found;
     }
     
+    // Wenn ein Dringling und zwei Pair gefunden werden und es kein Vierling ist => FullHouse
     public static boolean isFullHouse(ArrayList<Card> cards) {
-        // TODO        
-        return false;
+
+           return isThreeOfAKind(cards) && isTwoPair(cards) && !isFourOfAKind(cards);
     }
     
+    
+    //Analog zu Drilling mit einer zusätzlichen Schleife
     public static boolean isFourOfAKind(ArrayList<Card> cards) {
         boolean found = false;
         for (int i = 0; i < cards.size() - 1 && !found; i++) {
@@ -89,7 +129,7 @@ public enum HandType {
                 if (cards.get(i).getRank() == cards.get(j).getRank()) {
                 	for (int k = j+1; k < cards.size() && !found; k++) {
                 		if (cards.get(j).getRank() == cards.get(k).getRank()) {
-                			for (int m = k+1; m < cards.size() && !found; k++) {
+                			for (int m = k+1; m < cards.size() && !found; m++) {
                 				 if (cards.get(i).getRank() == cards.get(m).getRank()) found = true;
                 			}
                 		}
@@ -101,6 +141,12 @@ public enum HandType {
     }
     
     public static boolean isStraightFlush(ArrayList<Card> cards) {
+    	
+    	//Wenn Flush und Strasse wahr ist => StraightFlush
+        return isFlush(cards) && isStraight(cards);
+    }
+    
+    public static boolean isRoyalFlush(ArrayList<Card> cards) {
         // TODO        
         return false;
     }
