@@ -54,4 +54,10 @@ public class Card {
     public String toString() {
         return rank.toString() + suit.toString();
     }
+
+	public Integer getCardOrdinal() {
+		int in = this.rank.ordinal();
+		Integer ordinal = in;
+		return ordinal;
+	}
 }
