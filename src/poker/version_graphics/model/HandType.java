@@ -173,17 +173,10 @@ public enum HandType {
     
     public static boolean isRoyalFlush(ArrayList<Card> cards) {
     	boolean found = false;
-    	
-		System.out.println(isFlush(cards));
-		System.out.println(isStraight(cards));
-		System.out.println(hstraight);
-		
 		
 		if(isFlush(cards) && hstraight && isStraight(cards)) {
 			found = true;
-		}
-		System.out.println(found);
-    	
-        return false;
+		}    	
+        return found;
     }
 }
