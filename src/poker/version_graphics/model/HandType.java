@@ -1,10 +1,14 @@
 package poker.version_graphics.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public enum HandType {
     HighCard, OnePair, TwoPair, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush, RoyalFlush;
     
+	//Boolean für die höchste Strasse (Royalflush)
+	private static boolean hstraight;
+	
     /**
      * Determine the value of this hand. Note that this does not
      * account for any tie-breaking
@@ -73,25 +77,46 @@ public enum HandType {
     public static boolean isStraight(ArrayList<Card> cards) {
         boolean found = false;
         
+        hstraight = false;
+        
         //Arraylist definieren
         ArrayList<Integer> tempListe = new ArrayList<Integer>();
         
-        //Arraylist füllen mit den Werten der Karten
-       // for (int i = 0; i < cards.size() - 1; i++) {
-       //     if (cards == Card.Rank.Two) {
-               
+        //Arraylist füllen mit den Werten den Karten
+       for (int i = 0; i < cards.size(); i++) {
+    	   Card tempCard = cards.get(i);
+    	   Integer intTemp = tempCard.getCardOrdinal();
+    	   tempListe.add(intTemp);
+       }
+       
         
         //Arraylist sortieren
+       Collections.sort(tempListe);
         
-        
-        //Schleife für die Auswertung
-                	
+        //die Auswertung normaler Fall
+        if (tempListe.get(0)+1 == tempListe.get(1)){
+        	if (tempListe.get(1)+1 == tempListe.get(2)) {
+        		if (tempListe.get(2)+1 == tempListe.get(3)) {
+        			//inkl. Fall Ass als eins!
+        			if (tempListe.get(3)+1 == tempListe.get(4) || (tempListe.get(3)+9 == tempListe.get(4))) {
+        					found = true;
+        					//höchste Strasse
+        					if (tempListe.get(4) == 12) {
+        						hstraight = true;
+        					}
+        					
+        					return found;
+        					
+        				
+        			}
+        		}
+        	}
+       }
 
-        
-        return false;
-    }
+		return found;
+    }	
     
-    // Wenn alle Karten die gleihe Suit haben => Flush
+    // Wenn alle Karten die gleiche Suit haben => Flush
     public static boolean isFlush(ArrayList<Card> cards) {
         boolean found = false;
         for (int i = 0; i < cards.size() - 1 && !found; i++) {
@@ -147,7 +172,18 @@ public enum HandType {
     }
     
     public static boolean isRoyalFlush(ArrayList<Card> cards) {
-        // TODO        
+    	boolean found = false;
+    	
+		System.out.println(isFlush(cards));
+		System.out.println(isStraight(cards));
+		System.out.println(hstraight);
+		
+		
+		if(isFlush(cards) && hstraight && isStraight(cards)) {
+			found = true;
+		}
+		System.out.println(found);
+    	
         return false;
     }
 }
