@@ -13,6 +13,7 @@ import poker.version_graphics.model.PokerGameModel;
 public class PokerGameView {
 	private HBox players;
 	private ControlArea controls;
+	private ResultArea results;
 	
 	private PokerGameModel model;
 	
@@ -31,10 +32,15 @@ public class PokerGameView {
 		controls = new ControlArea();
 		controls.linkDeck(model.getDeck()); // link DeckLabel to DeckOfCards in the logic
 		
-		// Put players and controls into a BorderPane
+		// Erstelle Results area für den Gewinner
+		results = new ResultArea();
+		
+		
+		// Put players and controls and results into a BorderPane
 		BorderPane root = new BorderPane();
 		root.setCenter(players);
 		root.setBottom(controls);
+		root.setTop(results);
 		
 		// Disallow resizing - which is difficult to get right with images
 		stage.setResizable(false);
@@ -58,5 +64,9 @@ public class PokerGameView {
 	
 	public Button getDealButton() {
 		return controls.btnDeal;
+	}
+	
+	public void updateResult(String text) {
+		results.setWinner(text); 
 	}
 }

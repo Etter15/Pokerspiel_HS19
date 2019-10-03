@@ -25,26 +25,21 @@ public class PokerGameModel {
 		return deck;
 	}
 
+	//Gibt den Gewinner des Spiels zurück
 	public String returnWinner() {
 		
 		for (int i = 0; i < (PokerGame.NUM_PLAYERS-1); i++) {
 			int j = getPlayer(i).compareTo(getPlayer(i+1));
 			System.out.println(j);
 			if(j>0) {
-				this.besterSpieler = getPlayer(i).getPlayerName();
-				System.out.println(" "+ besterSpieler);
+				this.besterSpieler = "Der Gewinner ist " +getPlayer(i).getPlayerName();
 			}
 			if (j<0) {
-				this.besterSpieler = getPlayer(i+1).getPlayerName();
-				System.out.println(" "+ besterSpieler);
+				this.besterSpieler = "Der Gewinner ist " +getPlayer(i+1).getPlayerName();
 			}
 			if (j==0) {
 				this.besterSpieler = "Gleichstand zwischen " + getPlayer(i).getPlayerName() + " und " + getPlayer(i+1).getPlayerName();
-				System.out.println(" "+ besterSpieler);
-			}
-		
-		System.out.println(" "+ besterSpieler);
-			
+			}			
 		}
 		
 		return besterSpieler;
