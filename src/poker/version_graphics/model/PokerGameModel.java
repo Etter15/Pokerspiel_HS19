@@ -7,6 +7,7 @@ import poker.version_graphics.PokerGame;
 public class PokerGameModel {
 	private final ArrayList<Player> players = new ArrayList<>();
 	private DeckOfCards deck;
+	private String besterSpieler;
 	
 	public PokerGameModel() {
 		for (int i = 0; i < PokerGame.NUM_PLAYERS; i++) {
@@ -22,5 +23,31 @@ public class PokerGameModel {
 	
 	public DeckOfCards getDeck() {
 		return deck;
+	}
+
+	public String returnWinner() {
+		
+		for (int i = 0; i < (PokerGame.NUM_PLAYERS-1); i++) {
+			int j = getPlayer(i).compareTo(getPlayer(i+1));
+			System.out.println(j);
+			if(j>0) {
+				this.besterSpieler = getPlayer(i).getPlayerName();
+				System.out.println(" "+ besterSpieler);
+			}
+			if (j<0) {
+				this.besterSpieler = getPlayer(i+1).getPlayerName();
+				System.out.println(" "+ besterSpieler);
+			}
+			if (j==0) {
+				this.besterSpieler = "Gleichstand zwischen " + getPlayer(i).getPlayerName() + " und " + getPlayer(i+1).getPlayerName();
+				System.out.println(" "+ besterSpieler);
+			}
+		
+		System.out.println(" "+ besterSpieler);
+			
+		}
+		
+		return besterSpieler;
+		
 	}
 }
