@@ -119,23 +119,13 @@ public enum HandType {
     // Wenn alle Karten die gleiche Suit haben => Flush
     public static boolean isFlush(ArrayList<Card> cards) {
         boolean found = false;
-        for (int i = 0; i < cards.size() - 1 && !found; i++) {
-            for (int j = i+1; j < cards.size() && !found; j++) {
-                if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
-                	for (int k = j+1; k < cards.size() && !found; k++) {
-                		if (cards.get(j).getSuit() == cards.get(k).getSuit()) {
-                			for (int m = k+1; m < cards.size() && !found; m++) {
-                				 if (cards.get(i).getSuit() == cards.get(m).getSuit()) {
-                	                	for (int l = m+1; l < cards.size() && !found; l++) {
-                	                		if (cards.get(j).getSuit() == cards.get(k).getSuit()) found = true;
-                	                	}
-                				 }
-                	       }
-                		}
-                	}	
-                }
-            }
-        }
+
+        if (cards.get(0).getSuit() == cards.get(1).getSuit() && 
+        		cards.get(0).getSuit() == cards.get(2).getSuit()&& 
+        		cards.get(0).getSuit() == cards.get(3).getSuit() && 
+        		cards.get(0).getSuit() == cards.get(4).getSuit() 
+        		) found = true;
+            
         return found;
     }
     
