@@ -30,7 +30,7 @@ public class PokerGameModel {
 		
 		for (int i = 0; i < (PokerGame.NUM_PLAYERS-1); i++) {
 			int j = getPlayer(i).compareTo(getPlayer(i+1));
-			System.out.println(j);
+			
 			if(j>0) {
 				this.besterSpieler = "Der Gewinner ist " +getPlayer(i).getPlayerName();
 			}
