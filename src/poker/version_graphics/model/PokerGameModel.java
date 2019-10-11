@@ -9,6 +9,7 @@ public class PokerGameModel {
 	private DeckOfCards deck;
 	private String besterSpieler, unentSpieler="";
 	private int gleichstand=0, gewinner=0, tempunentschieden=0; 
+	private int numberOfPlayers;
 	
 	public PokerGameModel() {
 		for (int i = 0; i < PokerGame.NUM_PLAYERS; i++) {
@@ -136,6 +137,14 @@ public class PokerGameModel {
 				}
 			
 		return besterSpieler;
+	}
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
 	}
 }	
 				

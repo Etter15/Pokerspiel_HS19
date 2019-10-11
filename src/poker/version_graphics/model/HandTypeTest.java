@@ -210,6 +210,9 @@ public class HandTypeTest {
 		for (ArrayList<Card> hand : straightHands) {
 			assertTrue(HandType.isStraight(hand));
 		}
+		for (ArrayList<Card> hand : straightHands) {
+			assertFalse(HandType.isThreeOfAKind(hand)); // Triple cant contain flush
+		}
 	}
 	
 	/**
