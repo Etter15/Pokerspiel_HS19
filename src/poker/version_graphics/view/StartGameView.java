@@ -35,7 +35,7 @@ public class StartGameView {
 		this.model = model;
 
 		root = new VBox();
-		lblInstruction = new Label("Wählen Sie die Spieleranzahl");
+		lblInstruction = new Label("Wählen Sie die Spieleranzahl (2-10)");
 		txtNumberOfPlayers = new TextField();
 		btnStart = new Button("Start");
 		btnStart.setDisable(true);
