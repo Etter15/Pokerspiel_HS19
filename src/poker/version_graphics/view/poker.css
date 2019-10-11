@@ -31,3 +31,11 @@
     -fx-pref-height: 162;
     -fx-max-height: 800;
 }
+
+.number-of-players-red{
+	-fx-control-inner-background: #ff0000
+}
+
+.number-of-players-green{
+	-fx-control-inner-background: #00ff00
+}
