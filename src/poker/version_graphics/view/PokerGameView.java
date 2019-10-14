@@ -12,6 +12,7 @@ import poker.version_graphics.model.PokerGameModel;
 
 public class PokerGameView {
 	private HBox players;
+	private VBox SpielerFeldLinks, SpielerFeldRechts;
 	private ControlArea controls;
 	private ResultArea results;
 	
@@ -21,11 +22,20 @@ public class PokerGameView {
 		this.model = model;
 		
 		// Create all of the player panes we need, and put them into an HBox
+		//Erweitert damit es zwei Reihen gibt
+		SpielerFeldLinks = new VBox();
+		SpielerFeldRechts = new VBox();
 		players = new HBox();
+		players.getChildren().addAll(SpielerFeldLinks,SpielerFeldRechts);
+		
 		for (int i = 0; i < PokerGame.NUM_PLAYERS; i++) {
 			PlayerPane pp = new PlayerPane();
 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
-			players.getChildren().add(pp);
+			if(i==0 || i%2==0){
+				SpielerFeldLinks.getChildren().add(pp);
+			}else {
+				SpielerFeldRechts.getChildren().add(pp);
+			}
 		}
 		
 		// Create the control area
