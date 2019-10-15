@@ -18,6 +18,7 @@ public class StartGameView {
 	private VBox root;
 	private Label lblInstruction;
 	private TextField txtNumberOfPlayers;
+
 	private Button btnStart;
 	private Stage stage;
 
@@ -27,6 +28,14 @@ public class StartGameView {
 
 	public void setBtnStart(Button btnStart) {
 		this.btnStart = btnStart;
+	}
+	
+	public TextField getTxtNumberOfPlayers() {
+		return txtNumberOfPlayers;
+	}
+	
+	public Stage getStage() {
+		return stage;
 	}
 
 	private PokerGameModel model;
@@ -74,14 +83,6 @@ public class StartGameView {
 		stage.setTitle("Poker Miniproject");
 		stage.setScene(scene);
 		stage.show();
-		this.stage = stage;
-	}
-
-	public Stage getStage() {
-		return stage;
-	}
-
-	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 

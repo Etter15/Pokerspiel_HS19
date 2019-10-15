@@ -11,11 +11,7 @@ public class PokerGameModel {
 	private int gleichstand=0, gewinner=0, tempunentschieden=0; 
 	private int numberOfPlayers;
 	
-	public PokerGameModel() {
-		for (int i = 0; i < PokerGame.NUM_PLAYERS; i++) {
-			players.add(new Player("Player " + i));
-		}
-		
+	public PokerGameModel() {		
 		deck = new DeckOfCards();
 	}
 	
@@ -49,13 +45,13 @@ public class PokerGameModel {
 		
 			//Erweiterung mehr als 2 Spieler
 			
-			for (int i = (PokerGame.NUM_PLAYERS-1); i >= 0; i--) {
+			for (int i = (getNumberOfPlayers()-1); i >= 0; i--) {
 				int tempgewinner=1000;// zeigt ob der i-Spieler der Gewinner ist
-				if (i==(PokerGame.NUM_PLAYERS-1)) {
+				if (i==(getNumberOfPlayers()-1)) {
 					this.tempunentschieden=0; // in der aller ersten Runde setzen, damit Vorrunde keinen Einfluss
 					System.out.println(this.tempunentschieden);
 				}
-				for (int j = 0; j < (PokerGame.NUM_PLAYERS); j++ ) {
+				for (int j = 0; j < (getNumberOfPlayers()); j++ ) {
 					
 					if((i>0 && j==0)||(i==0 & j==1)  ) { //im ersten Durchlauf eines Spieler muss es möglich sein in die Gewinnerschleife zu kommen
 					tempgewinner=i;
@@ -83,7 +79,7 @@ public class PokerGameModel {
 							if (m<0) {
 								tempgewinner = 1000;
 								if(i==0) {//Stellt sicher, dass höhere vorhergehende Unentschieden nicht auf 0 gesetzt
-									if(j==(PokerGame.NUM_PLAYERS-1)) {
+									if(j==(getNumberOfPlayers()-1)) {
 										tempunentschieden = 0;
 									}
 								}else {
@@ -126,7 +122,7 @@ public class PokerGameModel {
 			
 			}
 			
-			if (this.gewinner >=0 && this.gewinner< PokerGame.NUM_PLAYERS) {
+			if (this.gewinner >=0 && this.gewinner< getNumberOfPlayers()) {
 				if(tempunentschieden == 1) {
 					this.besterSpieler = "Gleichstand zwischen den Spielern: " + this.unentSpieler ;
 				}else {
@@ -145,6 +141,11 @@ public class PokerGameModel {
 
 	public void setNumberOfPlayers(int numberOfPlayers) {
 		this.numberOfPlayers = numberOfPlayers;
+		
+		players.clear();
+		for (int i = 0; i < numberOfPlayers; i++) {
+			players.add(new Player("Player " + i));
+		}
 	}
 }	
 				

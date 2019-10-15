@@ -14,20 +14,29 @@ import poker.version_graphics.view.StartGameView;
 public class StartGameController {
 	private PokerGameModel model;
 	private StartGameView view;
-	
+
 	public StartGameController(PokerGameModel model, StartGameView view) {
 		this.model = model;
 		this.view = view;
-		
-		view.getBtnStart().setOnAction( e -> start() );
-	}
-	
-	private void start() {
-        PokerGameView pokerView;
-    	PokerGameController pokerController;
 
-    	pokerView = new PokerGameView(view.getStage(), model);
-    	pokerController = new PokerGameController(model, pokerView);
+		view.getBtnStart().setOnAction(e -> start());
+	}
+
+	private void start() {
+		PokerGameView pokerView;
+		PokerGameController pokerController;
+
+		int numberOfPlayers;
+		try {
+			numberOfPlayers = Integer.parseInt(view.getTxtNumberOfPlayers().getText());
+		} catch (NumberFormatException e) {
+//TODO show error message
+			numberOfPlayers = 2;
+		}
+		model.setNumberOfPlayers(numberOfPlayers);
+
+		pokerView = new PokerGameView(view.getStage(), model);
+		pokerController = new PokerGameController(model, pokerView);
 	}
 
 }

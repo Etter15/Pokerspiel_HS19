@@ -28,7 +28,7 @@ public class PokerGameView {
 		players = new HBox();
 		players.getChildren().addAll(SpielerFeldLinks,SpielerFeldRechts);
 		
-		for (int i = 0; i < PokerGame.NUM_PLAYERS; i++) {
+		for (int i = 0; i < model.getNumberOfPlayers(); i++) {
 			PlayerPane pp = new PlayerPane();
 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
 			if(i==0 || i%2==0){

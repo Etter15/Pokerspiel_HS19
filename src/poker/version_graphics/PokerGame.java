@@ -9,7 +9,6 @@ import poker.version_graphics.view.PokerGameView;
 import poker.version_graphics.view.StartGameView;
 
 public class PokerGame extends Application {
-	public static final int NUM_PLAYERS = 4;
 	PokerGameModel model;
 	
 	
