@@ -65,7 +65,9 @@ public class PokerGameView {
 	}
 	
 	public PlayerPane getPlayerPane(int i) {
-		return (PlayerPane) players.getChildren().get(i);
+		//get left or right field
+		VBox Spielfeld = (VBox) players.getChildren().get(i%2);
+		return (PlayerPane) Spielfeld.getChildren().get(i/2);
 	}
 	
 	public Button getShuffleButton() {
