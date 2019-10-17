@@ -7,8 +7,11 @@ import poker.version_graphics.PokerGame;
 public class PokerGameModel {
 	private final ArrayList<Player> players = new ArrayList<>();
 	private DeckOfCards deck;
-	private String besterSpieler, unentSpieler="";
-	private int gleichstand=0, gewinner=0, tempunentschieden=0; 
+	private String besterSpieler, unentSpieler;
+	private int gewinnerArray [];
+	private int ergebnisArray [][];
+	private boolean unentschieden;
+
 	private int numberOfPlayers;
 	
 	public PokerGameModel() {		
@@ -27,8 +30,69 @@ public class PokerGameModel {
 	
 	//Problem wenn player1 gewinnen sollte!!!!!!!!!!!
 	public String returnWinner() {
-		this.unentSpieler=""; //String zurücksetzen
+		this.gewinnerArray = new int[this.numberOfPlayers];
+		this.ergebnisArray = new int[this.numberOfPlayers][this.numberOfPlayers];
+		int gewinner =0, gewinnerIndex=0;
+		this.unentSpieler="";
+		this.besterSpieler="";
+		this.unentschieden = false;
+		ArrayList<Integer> unentschiedenSpieler = new ArrayList<>();
+		unentschiedenSpieler.clear();
 		
+		//ErgebnisArray und GewinnerArray befüllen
+		for (int i = 0; i < this.ergebnisArray.length; i++) {
+			int gewinnZählen = 0;
+			
+			for (int j = 0; j < this.ergebnisArray[0].length; j++) {
+				if ( i==j) {
+					
+				}else {
+					this.ergebnisArray[i][j] = getPlayer(i).compareTo(getPlayer(j));
+					if(getPlayer(i).compareTo(getPlayer(j))>0){
+						gewinnZählen++;
+						}
+					if(getPlayer(i).compareTo(getPlayer(j))<0) {
+						gewinnZählen--;
+						}
+					
+					}
+				}
+			
+			this.gewinnerArray[i]=gewinnZählen;
+			
+			}
+		
+		//Gewinner ermitteln
+		for (int i = 0; i < this.gewinnerArray.length; i++) {
+			if (this.gewinnerArray[i]> gewinner) {
+				gewinner = this.gewinnerArray[i];
+				gewinnerIndex=i;
+			}
+			
+		}
+		
+		//Unentschieden ermitteln
+		for (int i = 0; i < this.gewinnerArray.length; i++) {
+			if(gewinnerIndex==i) {
+				
+				
+			}else {
+				if(gewinner == this.gewinnerArray[i]) {
+					this.unentschieden = true;
+					unentschiedenSpieler.add(i);
+				}
+			}
+		}
+		
+		//Spieler Unentschieden
+		if(this.unentschieden) {
+			//Spieler welcher als Gewinner eingetragen ist
+			this.unentSpieler= this.unentSpieler.concat(gewinnerIndex+" ");
+			for (int g=0; g<unentschiedenSpieler.size();g++) {
+				this.unentSpieler= this.unentSpieler.concat(unentschiedenSpieler.get(g)+" ");
+			}
+		}
+	
 			// 2 Spielerfall
 			/*int j = getPlayer(0).compareTo(getPlayer(1));
 			
@@ -44,95 +108,16 @@ public class PokerGameModel {
 			*/
 		
 			//Erweiterung mehr als 2 Spieler
-			
-			for (int i = (getNumberOfPlayers()-1); i >= 0; i--) {
-				int tempgewinner=1000;// zeigt ob der i-Spieler der Gewinner ist
-				if (i==(getNumberOfPlayers()-1)) {
-					this.tempunentschieden=0; // in der aller ersten Runde setzen, damit Vorrunde keinen Einfluss
-					System.out.println(this.tempunentschieden);
-				}
-				for (int j = 0; j < (getNumberOfPlayers()); j++ ) {
-					
-					if((i>0 && j==0)||(i==0 & j==1)  ) { //im ersten Durchlauf eines Spieler muss es möglich sein in die Gewinnerschleife zu kommen
-					tempgewinner=i;
-					}
-					
-					if(i==j) {
-					}else{
-						System.out.println("Runde "+i + " " + j);
-						System.out.println("Rundetemp "+tempgewinner);
-						
-						int m = getPlayer(i).compareTo(getPlayer(j));
-							if(m>0 && tempgewinner == i) {
-								tempgewinner = i;
-								tempunentschieden = 0;
-								System.out.println("temp"+tempgewinner + "unent" + tempunentschieden);
-								}
-							
-							/*
-							 * 
-							 * Hier hat es einen Bug, es bleibt immer ein Fall übrig, der nicht stimmt!
-							 * Nur bei >2 Spielern ein Problem
-							 */
-							
-						
-							if (m<0) {
-								tempgewinner = 1000;
-								if(i==0) {//Stellt sicher, dass höhere vorhergehende Unentschieden nicht auf 0 gesetzt
-									if(j==(getNumberOfPlayers()-1)) {
-										tempunentschieden = 0;
-									}
-								}else {
-									tempunentschieden = 0; 
-								}
-								
-								
-								System.out.println("looser"+tempgewinner);
-								}
-							
-							
-							/*
-							 * 
-							 * 
-							 */
-							
-							if (m==0) {
-								if (tempgewinner==i) {
-									tempunentschieden=1;
-									tempgewinner=500;
-									this.unentSpieler= this.unentSpieler.concat(i+" ");
-									}
-								if(tempgewinner == 500) {
-									tempunentschieden=1;
-								}
-								if (tempgewinner == 1000) {
-									tempunentschieden=0;
-								}
-
-							}
-					}
-					
-				}
-				
-				System.out.println("Unentschieden"+this.tempunentschieden);
-				if(tempgewinner == i) {
-					this.gewinner = tempgewinner;
-					System.out.println("Gewinner"+this.gewinner);
-					}
-			
+		
+		
+		
+		if(this.unentschieden) {
+			this.besterSpieler = "Gleichstand zwischen den Spielern: " + this.unentSpieler ;
+		}else {
+			this.besterSpieler= "Der Gewinner ist " +getPlayer(gewinnerIndex).getPlayerName();
 			}
+		return this.besterSpieler;
 			
-			if (this.gewinner >=0 && this.gewinner< getNumberOfPlayers()) {
-				if(tempunentschieden == 1) {
-					this.besterSpieler = "Gleichstand zwischen den Spielern: " + this.unentSpieler ;
-				}else {
-					this.besterSpieler = "Der Gewinner ist " +getPlayer(this.gewinner).getPlayerName();
-				}	
-			}else {
-				this.besterSpieler = "Gleichstand zwischen den Spielern: " + this.unentSpieler ;
-				}
-			
-		return besterSpieler;
 	}
 
 	public int getNumberOfPlayers() {
