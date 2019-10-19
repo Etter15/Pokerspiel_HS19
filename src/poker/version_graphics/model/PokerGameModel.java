@@ -73,10 +73,7 @@ public class PokerGameModel {
 		
 		//Unentschieden ermitteln
 		for (int i = 0; i < this.gewinnerArray.length; i++) {
-			if(gewinnerIndex==i) {
-				
-				
-			}else {
+			if(gewinnerIndex!=i) {
 				if(gewinner == this.gewinnerArray[i]) {
 					this.unentschieden = true;
 					unentschiedenSpieler.add(i);
@@ -92,24 +89,6 @@ public class PokerGameModel {
 				this.unentSpieler= this.unentSpieler.concat(unentschiedenSpieler.get(g)+" ");
 			}
 		}
-	
-			// 2 Spielerfall
-			/*int j = getPlayer(0).compareTo(getPlayer(1));
-			
-			if(j>0) {
-				this.besterSpieler = "Der Gewinner ist " +getPlayer(0).getPlayerName();
-			}
-			if (j<0) {
-				this.besterSpieler = "Der Gewinner ist " +getPlayer(1).getPlayerName();
-			}
-			if (j==0) {
-				this.besterSpieler = "Gleichstand zwischen " + getPlayer(0).getPlayerName() + " und " + getPlayer(1).getPlayerName();
-			}
-			*/
-		
-			//Erweiterung mehr als 2 Spieler
-		
-		
 		
 		if(this.unentschieden) {
 			this.besterSpieler = "Gleichstand zwischen den Spielern: " + this.unentSpieler ;
