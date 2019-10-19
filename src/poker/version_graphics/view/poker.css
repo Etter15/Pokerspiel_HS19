@@ -5,6 +5,13 @@
   	-fx-alignment: center;
 }
 
+#message {
+ 	-fx-font-size: 32px;
+ 	-fx-text-fill: hotpink;
+ 	-fx-background-color: azure;
+ 	-fx-max-width: 800.0;
+}
+
 #controlArea {
     -fx-spacing: 15.0px;
     -fx-padding: 5.0px;
@@ -33,9 +40,9 @@
 }
 
 .number-of-players-red{
-	-fx-control-inner-background: #ff0000
+	-fx-control-inner-background: lightcoral
 }
 
 .number-of-players-green{
-	-fx-control-inner-background: #00ff00
+	-fx-control-inner-background: lightgreen
 }
