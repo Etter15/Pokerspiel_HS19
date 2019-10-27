@@ -164,7 +164,7 @@ public enum HandType {
     public static boolean isRoyalFlush(ArrayList<Card> cards) {
     	boolean found = false;
 		
-		if(isFlush(cards) && hstraight && isStraight(cards)) {
+		if(isFlush(cards) && isStraight(cards) && hstraight) {
 			found = true;
 		}    	
         return found;
