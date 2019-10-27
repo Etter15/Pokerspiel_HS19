@@ -140,44 +140,121 @@ public class Player implements Comparable<Player> {
 					//pair nur welches Paar höher
 					case(1):int höchstesPaar=0;
 							int höchstesPaarGegner=0;
+							
 							//Spieler
-							for (int a = 0; a < cards.size(); a++) {
-								for (int j = i+1; j < cards.size(); j++) {
-									if (cards.get(a).getRank() == cards.get(j).getRank()) 
-										höchstesPaar=cards.get(a).getCardOrdinal();
-								}
-							}
-							//Gegner
-							for (int a = 0; a < o.cards.size(); a++) {
-								for (int j = a+1; j < o.cards.size(); j++) {
-									if (o.cards.get(a).getRank() == o.cards.get(j).getRank()) 
-										höchstesPaarGegner=o.cards.get(a).getCardOrdinal();
-								}
-							}
+							ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+					        for (int k = 0; k < clonedCards.size()-1; k++) {
+					            for (int j = k+1; j < clonedCards.size(); j++) {
+					                if (clonedCards.get(k).getRank() == clonedCards.get(j).getRank()) {
+					                	höchstesPaar=clonedCards.get(k).getCardOrdinal();
+					                }   	
+					             }
+					           }
+					        
+					        
+					        //Gegner
+					    	ArrayList<Card> clonedCardsG = (ArrayList<Card>) o.cards.clone();
+					        for (int k = 0; k < clonedCardsG.size()-1; k++) {
+					            for (int j = k+1; j < clonedCardsG.size(); j++) {
+					                if (clonedCardsG.get(k).getRank() == clonedCardsG.get(j).getRank()) {
+					                	höchstesPaarGegner=clonedCardsG.get(k).getCardOrdinal();
+					                }   	
+					             }
+					           }
+					        
 							if(höchstesPaar>höchstesPaarGegner) {
 								ergebnis=1;
 							}
 							if(höchstesPaar<höchstesPaarGegner) {
 								ergebnis=-1;
-							}	
-							
+								}
+
 							break;
-					// twoPair fehlt
-					case(2):int höchstestwoPaar=0;
-							int höchstestwoPaarGegner=0;
+					// twoPair welche Paar-Kombination gewinnt
+					case(2):int höchstesTwoPaar=0;
+							int zweithöchstesPaar=0;
+							int höchstesTwoPaarGegner=0;
+							int zweithöchstesPaarGegner=0;
+							
+							//Spieler
+							ArrayList<Card> clonedCardsA = (ArrayList<Card>) cards.clone();
+					        for (int k = 0; k < clonedCardsA.size()-1; k++) {
+					            for (int j = k+1; j < clonedCardsA.size(); j++) {
+					                if (clonedCardsA.get(k).getRank() == clonedCardsA.get(j).getRank()) {
+					                	höchstesTwoPaar=clonedCardsA.get(k).getCardOrdinal();
+					                    clonedCardsA.remove(j);  
+					                    clonedCardsA.remove(k);  
+					                    for (int n = 0; n < clonedCardsA.size()-1; n++) {
+					                    	  for (int l = n+1; l < clonedCardsA.size(); l++) {
+									                if (clonedCardsA.get(n).getRank() == clonedCardsA.get(l).getRank()) {
+									                	if(höchstesTwoPaar>clonedCardsA.get(n).getCardOrdinal()) {
+									                		zweithöchstesPaar=clonedCardsA.get(n).getCardOrdinal();
+									                	}else {
+									                		zweithöchstesPaar=höchstesTwoPaar;
+									                		höchstesTwoPaar=clonedCardsA.get(n).getCardOrdinal();
+									                	}
+									                }
+					                    }
+					                }   	
+					             }
+					           }
+					        }
+					        
+					        
+					        //Gegner
+					    	ArrayList<Card> clonedCardsB = (ArrayList<Card>) o.cards.clone();
+					        for (int k = 0; k < clonedCardsB.size()-1; k++) {
+					            for (int j = k+1; j < clonedCardsB.size(); j++) {
+					                if (clonedCardsB.get(k).getRank() == clonedCardsB.get(j).getRank()) {
+					                	höchstesTwoPaarGegner=clonedCardsB.get(k).getCardOrdinal();
+					                    clonedCardsB.remove(j);  
+					                    clonedCardsB.remove(k);  
+					                    for (int n = 0; n < clonedCardsB.size()-1; n++) {
+					                    	  for (int l = n+1; l < clonedCardsB.size(); l++) {
+									                if (clonedCardsB.get(n).getRank() == clonedCardsB.get(l).getRank()) {
+									                	if(höchstesTwoPaarGegner>clonedCardsB.get(n).getCardOrdinal()) {
+									                		zweithöchstesPaarGegner=clonedCardsB.get(n).getCardOrdinal();
+									                	}else {
+									                		zweithöchstesPaarGegner=höchstesTwoPaarGegner;
+									                		höchstesTwoPaarGegner=clonedCardsB.get(n).getCardOrdinal();
+									                	}
+									                }
+					                    	  }   	
+					                    }
+					                }
+					            }
+					        }
+					        
+							if(höchstesTwoPaar>höchstesTwoPaarGegner) {
+								ergebnis=1;
+							}
+							if(höchstesTwoPaar<höchstesTwoPaarGegner) {
+								ergebnis=-1;
+								}
+							if(höchstesTwoPaar==höchstesTwoPaarGegner) {
+								if(zweithöchstesPaar>zweithöchstesPaarGegner) {
+									ergebnis=1;
+								}
+								if(zweithöchstesPaar<zweithöchstesPaarGegner) {
+									ergebnis=-1;
+									}	
+							}
+							
+							
+							
 
 					//ThreeOfAKind muss nur ein Paar gesucht werden, ohne weitere Karten
 					case(3):int höchster3 =0;
 							int höchster3Gegner =0;
 							//Spieler 
-							for (int a = 0; a < cards.size(); a++) {
+							for (int a = 0; a < cards.size()-1; a++) {
 								for (int j = i+1; j < cards.size(); j++) {
 									if (cards.get(a).getRank() == cards.get(j).getRank()) 
 										höchster3=cards.get(a).getCardOrdinal();
 								}
 							}
 							//Gegner
-							for (int a = 0; a < o.cards.size(); a++) {
+							for (int a = 0; a < o.cards.size()-1; a++) {
 								for (int j = a+1; j < o.cards.size(); j++) {
 									if (o.cards.get(a).getRank() == o.cards.get(j).getRank()) 
 										höchster3Gegner=o.cards.get(a).getCardOrdinal();
@@ -321,14 +398,14 @@ public class Player implements Comparable<Player> {
 					case(7):höchster3 =0;
 							höchster3Gegner =0;
 							//Spieler 
-							for (int a = 0; a < cards.size(); a++) {
+							for (int a = 0; a < cards.size()-1; a++) {
 								for (int j = i+1; j < cards.size(); j++) {
 									if (cards.get(a).getRank() == cards.get(j).getRank()) 
 										höchster3=cards.get(a).getCardOrdinal();
 								}
 							}
 							//Gegner
-							for (int a = 0; a < o.cards.size(); a++) {
+							for (int a = 0; a < o.cards.size()-1; a++) {
 								for (int j = a+1; j < o.cards.size(); j++) {
 									if (o.cards.get(a).getRank() == o.cards.get(j).getRank()) 
 										höchster3Gegner=o.cards.get(a).getCardOrdinal();
